@@ -26,7 +26,18 @@ function playRound(playerSelection, computerSelection) {
     else if (playerSelection === "rock" && computerChoice ==="scissor") {
         console.log("You win. Rock beats scissor.")
     }
+    else if (playerSelection === "paper" && computerChoice === "rock") {
+        console.log("You win, paper beats rock")
+    }
+    else if (playerSelection === "paper" && computerChoice === "scissor"){
+        console.log("You lose, scissor beats rock")
+    }
+    else if (playerSelection === "scissor" && computerChoice === "paper"){
+        console.log("You win, scissor beats paper")
+    }
+    else if (playerSelection === "scissor" && computerChoice === "rock")
+    console.log("You lose, rock beats scissor")
 }
 let playerSelection = "rock";
-const computerChoice = "paper";
+const computerChoice = "rock";
 console.log(playRound(playerSelection, computerChoice))
