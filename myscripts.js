@@ -13,7 +13,7 @@ function getComputerChoice(){
         return computerChoice
     }
 }
-function getPlayerChoice() {
+/*function getPlayerChoice() {
     let ask = prompt("play 5 rounds, see who wins", "rock, paper, scissor ?")
     while (ask == null) {
         ask = prompt("play 5 rounds, see who wins", "rock, paper, scissor ?")
@@ -21,71 +21,103 @@ function getPlayerChoice() {
     ask = ask.toLowerCase()
     return ask;
 }
+*/
 
 
 function playRound(playerSelection, computerChoice) {
     
     if (playerSelection === computerChoice){
-        return "It's a tie.";
+        div.textContent = "It's a tie.";
     }
     else if (playerSelection === "rock" && computerChoice === "paper") {
-        return "You lose. Paper beats rock";
+        div.textContent = "You lose. Paper beats rock";
          
     }
     else if (playerSelection === "rock" && computerChoice ==="scissor") {
-        return "You win. Rock beats scissor.";
+        div.textContent =  "You win. Rock beats scissor.";
     }
     else if (playerSelection === "paper" && computerChoice === "rock") {
-        return "You win, paper beats rock";
+        div.textContent =  "You win, paper beats rock";
     }
     else if (playerSelection === "paper" && computerChoice === "scissor"){
-        return "You lose, scissor beats paper";
+        div.textContent =  "You lose, scissor beats paper";
     }
     else if (playerSelection === "scissor" && computerChoice === "paper"){
-        return "You win, scissor beats paper";
+        div.textContent =  "You win, scissor beats paper";
     }
     else if (playerSelection === "scissor" && computerChoice === "rock")
-        return "You lose, rock beats scissor";
+        div.textContent =  "You lose, rock beats scissor";
     else {
-        return "please type correctly"
+        div.textContent =  "please type correctly"
     }
 }
+
 let playerCount = 0;
 let compCount = 0;
 function winCounter(playerSelection, computerChoice){
     if (playerSelection === computerChoice){
-        return 0;
+       return playerCount && compCount + 0;
     }
     else if  ((playerSelection === "paper" && computerChoice === "rock" ) ||
-        (playerSelection ==="scissor" && computerChoice ===" scissor")||
-        (playerSelection === "rock" && computerChoice ==="paper")
+        (playerSelection ==="scissor" && computerChoice ==="paper")||
+        (playerSelection === "rock" && computerChoice ==="scissor")
 )
     {
-       return playerCount = playerCount + 1;
+         return playerCount = playerCount + 1;
+         
     }
     else {
         return compCount = compCount + 1;
     }
     
 }
-function winDecider(playerCount, compCount){
-    if (playerCount === compCount){
-        return "its a draw";
+function restart(playerCount, compCount){
+    if (playerCount || compCount === 5){
+          compCount = 0;
     }
-    else if (playerCount > compCount){
-        return "you Win!";
+
+}
+function game(playerCount, compCount){
+    if (playerCount === 5) {
+        win.textContent='You Win!'
     }
-    else {
-        return "You lose, the robots have taken over!!";
+    else if (compCount === 5){
+        win.textContent= "You Lose";
     }
 }
 
-function game(){
-    for(i = 0; i < 5; i++){
-        playerSelection = getPlayerChoice()
-        let computerChoice = getComputerChoice()
-        console.log(playRound(playerSelection, computerChoice))
-    }
-    console.log(winDecider(playerCount, compCount))
-}
-game()
+
+//const button = document.querySelectorAll('button')
+const rock = document.querySelector(".rock");
+const paper = document.querySelector(".paper");
+const scissor = document.querySelector(".scissor");
+
+rock.addEventListener('click', () => {
+    computerChoice = getComputerChoice();
+    playRound('rock', computerChoice)
+    winCounter('rock', computerChoice)
+})
+paper.addEventListener('click', () => {
+    computerChoice = getComputerChoice();
+    playRound("paper", computerChoice)
+    winCounter('paper', computerChoice)
+})
+scissor.addEventListener('click', () =>{
+    computerChoice = getComputerChoice();
+    playRound('scissor', computerChoice)
+    winCounter('scissor', computerChoice)
+})
+
+const div = document.querySelector('.result');
+
+const score = document.querySelector('.score');
+
+const win = document.querySelector('.winner')
+
+document.querySelectorAll('button').forEach(item => {
+    item.addEventListener('click', () => {
+        score.textContent = `Player wins: ${playerCount} Computer wins: ${compCount}`
+        game(playerCount,compCount)
+        console.log(restart(playerCount,compCount))
+            })
+})
